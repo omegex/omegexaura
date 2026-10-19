@@ -139,6 +139,20 @@ footer{border-top:1px solid var(--line);background:var(--card);backdrop-filter:b
 .ic img{width:100%;height:100%;object-fit:cover;display:block}.ic svg{width:55%;height:55%}
 .ic.im{background:transparent}.ic.g{background:#128c4a}.ic.im img{border-radius:inherit}
 .mini a{overflow:hidden;color:#fff}.mini a img{width:100%;height:100%;object-fit:cover}.mini a svg{width:22px;height:22px}
+.yt{position:absolute;left:0;bottom:calc(100% + 10px);width:220px;height:124px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#000;display:none;box-shadow:0 12px 30px #000a}.yt.show{display:block}
+.so{position:absolute;left:-9999px}
+#prog{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;height:3px;z-index:65;background:linear-gradient(90deg,#FF303B,#2583FF);transform-origin:0 50%;transform:scaleX(0)}
+.tr{position:fixed;left:0;top:0;border-radius:50%;pointer-events:none;z-index:90;mix-blend-mode:screen}
+.cp2{margin-left:auto;padding:4px 12px;border-radius:8px;border:1px solid var(--a);background:none;color:var(--fg);cursor:pointer;font:500 13px "Plus Jakarta Sans",sans-serif}.cp2:hover{background:rgba(37,131,255,.18)}
+.mu{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:70;display:flex;align-items:center;gap:10px;background:rgba(18,23,34,.92);border:1px solid var(--line);border-radius:99px;padding:6px 14px 6px 6px;backdrop-filter:blur(10px);box-shadow:0 8px 24px #0008}
+.mu button{width:44px;height:44px;border-radius:50%;border:1px solid var(--a);background:#080A0F;display:grid;place-items:center;cursor:pointer;transition:.2s}
+.mu button:hover{transform:scale(1.08)}.mu button.on{background:#e11d2a;border-color:#e11d2a}
+.eq{display:flex;gap:3px;align-items:flex-end;height:18px}.eq i{width:3px;height:6px;border-radius:2px;background:#fff}
+.mu button.on .eq i{animation:eq 1s ease-in-out infinite}.eq i:nth-child(2){animation-delay:-.3s}.eq i:nth-child(3){animation-delay:-.6s}.eq i:nth-child(4){animation-delay:-.15s}
+@keyframes eq{50%{height:18px}}
+.mu input{width:84px;accent-color:#FF303B;cursor:pointer}
+.mu select{width:170px;background:#080A0F;color:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font:500 13px "Plus Jakarta Sans",sans-serif;cursor:pointer}
+@media(max-width:600px){.mu input[type=range]{display:none}.mu select{width:124px}}
 img.logo{border-radius:22%;object-fit:cover}
 .stage img.logo{inset:12%;width:76%;height:76%;border-radius:50%;border:2px solid var(--a);filter:none;box-shadow:0 0 70px -8px var(--a),0 0 36px -14px var(--c)}
 .brand img.logo{border-radius:50%;border:1px solid var(--a)}
@@ -156,6 +170,7 @@ img.logo{border-radius:22%;object-fit:cover}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2583FF"/><stop offset="1" stop-color="#FF303B"/></linearGradient>
 <symbol id="mark" viewBox="0 0 64 64"><path d="M32 4 56 18v28L32 60 8 46V18z" fill="none" stroke="url(#lg)" stroke-width="4" stroke-linejoin="round"/><path d="M20 40c0-9 5-16 12-16s12 7 12 16h-6c0-5-2-9-6-9s-6 4-6 9z" fill="url(#lg)"/><circle cx="32" cy="22" r="3.5" fill="#fff"/></symbol></defs></svg>
+<div id="prog" aria-hidden="true"></div>
 <div class="ld" aria-hidden="true"><svg class="logo"><use href="#mark"/></svg></div>
 <canvas id="bg" aria-hidden="true"></canvas><div class="glow"></div>
 
@@ -248,6 +263,7 @@ img.logo{border-radius:22%;object-fit:cover}
 <div class="cp"><span>© <span id="yr"></span> OmegaX Aura. All rights reserved.</span><a href="#home">Back to top ↑</a></div>
 </footer>
 <a class="wa" id="waF" target="_blank" rel="noopener noreferrer" aria-label="Chat with OmegaX Aura on WhatsApp">💬</a>
+<div class="mu" id="mu"><div class="yt" id="yt"></div><button id="mbtn" type="button" aria-pressed="false" aria-label="Play background music" title="Background music"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></button><label><span class="so">Choose track</span><select id="trk"></select></label><label><span class="so">Music volume</span><input id="vol" type="range" min="0" max="100" value="35"></label></div>
 <dialog id="dg" aria-labelledby="dt"><div id="db"></div><div class="row" style="margin-bottom:0"><button class="btn o" id="dc">Close</button></div></dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
@@ -263,6 +279,7 @@ intro:"I’m OmegaX Aura, a creative enthusiast interested in gaming, video edit
 profile:[["Name","OmegaX Aura"],["Focus","Gaming & video editing"],["Location","Add yours"],["Languages","Add yours"]],
 highlights:[["Gaming and digital entertainment","Playing, exploring and sharing gaming culture."],["Video editing and visual storytelling","Turning raw footage into a clear, cinematic story."],["Visual enhancement and creative effects","Polishing images and video with effects and enhancement."],["Technology exploration and continuous learning","Trying new tools and sharpening skills."]],
 skills:[["Adobe After Effects","Motion graphics, animation, compositing, and visual effects.","Ae","#e11d2a",""],["Topaz Labs","Image and video enhancement workflows, depending on the tools I use.","Tz","#1d73e8",""],["Premiere Pro","Video editing, timeline workflows, transitions, and storytelling.","Pr","#e11d2a",""],["Additional Skills","Technology, creative experimentation, and other skills added over time.","+","#1d73e8",""]], // 5th value = optional proficiency label
+music:{tracks:[{n:"Chill Ambient (built-in)",mood:0},{n:"Cinematic Dark (built-in)",mood:1},{n:"Cyber Pulse (built-in)",mood:2}]}, // add your own: {n:"My song",src:"music.mp3"} // optional: URL of your own mp3, e.g. "music.mp3". Empty = built-in ambient loop
 whatsapp:{number:"8801819180086",msg:"Hi OmegaX Aura! I visited your portfolio and would like to connect with you."},
 email:"omegaxaura@gmail.com",
 emailjs:{publicKey:"VnCV_ENNkA9dLhy-j",serviceId:"service_ynmkdm3",templateId:"template_1x7l8hi"}, // paste your EmailJS keys here
@@ -308,7 +325,7 @@ const li=el("li");const f=soc(s);f.innerHTML=`<span class="fi">${icon(s.n)}</spa
 /* contact + whatsapp */
 const wa=`https://wa.me/${C.whatsapp.number}?text=${encodeURIComponent(C.whatsapp.msg)}`;
 $("#waBtn").href=wa;$("#waF").href=wa;$("#waF").innerHTML=icon("WhatsApp");
-$("#cl").innerHTML=`<li><span class="ci">${icon("Email")}</span>Email: <a href="mailto:${C.email}">${C.email}</a></li><li><span class="ci">${icon("WhatsApp")}</span>WhatsApp: <a href="https://wa.me/${C.whatsapp.number}" target="_blank" rel="noopener noreferrer">+${C.whatsapp.number}</a></li><li><span class="ci">${icon("Discord")}</span>Discord: <a href="${C.socials[1].u}" target="_blank" rel="noopener noreferrer">Join the server</a></li>`;
+$("#cl").innerHTML=`<li><span class="ci">${icon("Email")}</span>Email: <a href="mailto:${C.email}">${C.email}</a><button type="button" class="cp2" id="cpy">Copy</button></li><li><span class="ci">${icon("WhatsApp")}</span>WhatsApp: <a href="https://wa.me/${C.whatsapp.number}" target="_blank" rel="noopener noreferrer">+${C.whatsapp.number}</a></li><li><span class="ci">${icon("Discord")}</span>Discord: <a href="${C.socials[1].u}" target="_blank" rel="noopener noreferrer">Join the server</a></li>`;
 /* projects */
 let cat="All";const pg=$("#pg");
 const cols=["#1d73e8","#e11d2a","#0b2a5c","#7a0f18"];
@@ -353,6 +370,39 @@ try{const E=C.emailjs;if(E.publicKey&&!/^YOUR_/.test(E.publicKey)&&window.emailj
 else{location.href=`mailto:${C.email}?subject=${encodeURIComponent(d.subject)}&body=${encodeURIComponent(d.message+"\n\nFrom: "+d.name+" ("+d.email+")")}`;st.className="ok";st.textContent="Your email app should open with the message ready to send."}}
 catch(e){st.className="bad";st.textContent="Message not sent. Email "+C.email+" directly or use WhatsApp."}
 sb.disabled=false;sb.textContent="Send message"});
+/* background music */
+(()=>{const b=$("#mbtn"),v=$("#vol"),sel=$("#trk"),y=$("#yt"),T=C.music.tracks;let on=false,manual=false,cur=0,ctx=null,master=null,nodes=[],tm=0,fr=null,au=null;
+const MOODS=[
+{bpm:76,ch:[[220,261.6,329.6,392],[174.6,220,261.6,329.6],[196,261.6,329.6,392],[196,246.9,293.7,392]],fn:(i,c,t,d,H)=>{if(i===0)c.forEach(f=>H.tone(f,t,d*8,"sine",.05,1500,.5));if(i===0||i===5)H.kick(t,.45);if(i%2)H.hat(t,.03);if(i===0||i===4)H.tone(c[0]/2,t,d*3,"sine",.3,300);if(i===0||i===3||i===6)H.tone(c[(i+1)%4],t,d*2,"triangle",.08,2200)}},
+{bpm:70,ch:[[146.8,174.6,220,293.7],[116.5,146.8,174.6,233.1],[98,116.5,146.8,196],[110,138.6,164.8,220]],fn:(i,c,t,d,H)=>{if(i===0){c.forEach(f=>H.tone(f,t,d*8,"sawtooth",.025,500,.9));H.tone(c[0]/2,t,d*6,"sine",.4,200,.1);H.kick(t,.5)}if(i===4)H.tone(c[2]*4,t,d*4,"triangle",.04,5000);if(i===6)H.tone(c[1]*2,t,d*3,"sine",.05,3000)}},
+{bpm:112,ch:[[220,261.6,329.6,440],[174.6,220,261.6,349.2],[196,261.6,329.6,392],[196,246.9,293.7,392]],fn:(i,c,t,d,H)=>{if(i%2===0)H.kick(t,.6);if(i%2)H.hat(t,.04);H.tone(c[0]/2,t,d*.9,"sawtooth",.1,450);H.tone(c[[0,2,1,3,2,1,3,0][i]]*2,t,d*.8,"square",.035,3200);if(i===0)c.forEach(f=>H.tone(f,t,d*8,"triangle",.025,1200,.3))}}];
+T.forEach((k,i)=>sel.append(new Option(k.n,i)));
+const yc=(f,a=[])=>{if(fr&&fr.contentWindow)fr.contentWindow.postMessage(JSON.stringify({event:"command",func:f,args:a}),"*")};
+const setVol=()=>{const x=v.value/100;if(fr)yc("setVolume",[+v.value]);if(au)au.volume=x;if(master)master.gain.setTargetAtTime(x*1.3,ctx.currentTime,.3)};
+const killSynth=()=>{clearInterval(tm);if(ctx){ctx.close();ctx=null;master=null}};
+const killYT=()=>{if(fr){fr.remove();fr=null}y.classList.remove("show")};
+const killAu=()=>{if(au){au.pause();au=null}};
+function synth(m){killSynth();ctx=new(window.AudioContext||window.webkitAudioContext)();const cp=ctx.createDynamicsCompressor();master=ctx.createGain();master.gain.value=0;master.connect(cp);cp.connect(ctx.destination);
+const nb=ctx.createBuffer(1,4410,ctx.sampleRate),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=Math.random()*2-1;
+const tone=(f,t,d,ty,vol,lp,att=.02)=>{const o=ctx.createOscillator(),g=ctx.createGain(),fl=ctx.createBiquadFilter();o.type=ty;o.frequency.value=f;fl.type="lowpass";fl.frequency.value=lp;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+Math.min(att,d*.5));g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(fl);fl.connect(g);g.connect(master);o.start(t);o.stop(t+d+.05)};
+const kick=(t,v)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(40,t+.15);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.connect(g);g.connect(master);o.start(t);o.stop(t+.3)};
+const hat=(t,v)=>{const s=ctx.createBufferSource();s.buffer=nb;const f=ctx.createBiquadFilter();f.type="highpass";f.frequency.value=7000;const g=ctx.createGain();g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.05);s.connect(f);f.connect(g);g.connect(master);s.start(t);s.stop(t+.06)};
+const H={tone,kick,hat},d=60/m.bpm/2;let s=0,nx=ctx.currentTime+.15;
+const tick=()=>{if(!ctx)return;while(nx<ctx.currentTime+.25){m.fn(s%8,m.ch[(s>>3)%m.ch.length],nx,d,H);nx+=d;s++}};
+tm=setInterval(tick,40);tick();setVol()}
+function ytStart(id,title){if(!fr){fr=document.createElement("iframe");fr.src=`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&loop=1&playlist=${id}&controls=0&playsinline=1&rel=0&enablejsapi=1`;fr.title=title;fr.allow="autoplay; encrypted-media";fr.style.cssText="width:100%;height:100%;border:0";fr.addEventListener("load",()=>setTimeout(()=>{yc("setVolume",[+v.value]);yc("playVideo")},800));y.append(fr)}else yc("playVideo");y.classList.add("show")}
+const ui=()=>{b.classList.toggle("on",on);b.setAttribute("aria-pressed",on);b.setAttribute("aria-label",on?"Pause background music":"Play background music")};
+async function begin(){const k=T[cur];try{if(k.yt){killSynth();killAu();ytStart(k.yt,k.n)}else if(k.src){killSynth();killYT();if(!au){au=new Audio(k.src);au.loop=true}setVol();au.volume=v.value/100;await au.play()}else{killYT();killAu();if(!ctx)synth(MOODS[k.mood]);await ctx.resume();setVol()}on=true}catch(e){on=false}ui()}
+function pause(){if(fr){yc("pauseVideo");y.classList.remove("show")}if(au)au.pause();if(ctx)ctx.suspend();on=false;ui()}
+b.addEventListener("click",()=>{manual=true;on?pause():begin()});v.addEventListener("input",setVol);
+sel.addEventListener("change",()=>{cur=+sel.value;manual=true;killSynth();killYT();killAu();begin()});
+const first=e=>{if(e.target.closest&&e.target.closest("#mu"))return;if(!manual&&!on)begin();["pointerdown","keydown"].forEach(x=>removeEventListener(x,first))};
+["pointerdown","keydown"].forEach(x=>addEventListener(x,first));
+let was=false;document.addEventListener("visibilitychange",()=>{if(document.hidden){was=on;if(on)pause()}else if(was){was=false;begin()}})})();
+/* extras: scroll progress, cursor trail, copy email */
+(()=>{const p=$("#prog");const up=()=>{p.style.transform=`scaleX(${scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)})`};addEventListener("scroll",up,{passive:true});up();
+if(!matchMedia("(prefers-reduced-motion:reduce)").matches&&matchMedia("(hover:hover) and (pointer:fine)").matches){const D=Array.from({length:10},(_,i)=>{const e=document.createElement("i");e.className="tr";e.style.cssText=`opacity:${1-i/11};width:${12-i}px;height:${12-i}px;background:${i%2?"#2583FF":"#FF303B"}`;document.body.append(e);return{e,x:0,y:0}});let mx=-50,my=-50;addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY});const loop=()=>{let x=mx,y=my;D.forEach((d,i)=>{d.x+=(x-d.x)*(.35-i*.02);d.y+=(y-d.y)*(.35-i*.02);d.e.style.transform=`translate(${d.x-6}px,${d.y-6}px)`;x=d.x;y=d.y});requestAnimationFrame(loop)};loop()}
+const cb=$("#cpy");if(cb)cb.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(C.email);cb.textContent="Copied"}catch(e){cb.textContent="Press Ctrl+C"}setTimeout(()=>cb.textContent="Copy",1800)})})();
 /* hero fade on scroll */
 (()=>{const h=document.querySelector(".hero>div"),rm=matchMedia("(prefers-reduced-motion:reduce)");if(rm.matches)return;let q=0;addEventListener("scroll",()=>{if(q)return;q=requestAnimationFrame(()=>{q=0;const p=Math.min(1,scrollY/(innerHeight*.7));h.style.opacity=1-p;h.style.transform=`translateY(${-p*30}px)`})},{passive:true})})();
 /* canvas background */
